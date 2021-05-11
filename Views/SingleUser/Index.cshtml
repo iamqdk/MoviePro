@@ -1,0 +1,66 @@
+﻿@using MoviePro.Extensions
+
+@{
+    ViewData["Title"] = "Index";
+    var verifyLogin = Context.Session.Get<User>("LoginString");
+    var i = 0;
+}
+@model User
+@if (@verifyLogin != null)
+{
+    <!--/content-inner-section-->
+    <div class="w3_content_agilleinfo_inner">
+        <div class="agile_featured_movies">
+            <div class="inner-agile-w3l-part-head">
+                <h3 class="w3l-inner-h-title">Account</h3>
+                <p class="w3ls_head_para">@Model.Name</p>
+            </div>
+            <div class="grid_3 grid_4">
+                <div class="icons">
+                    <h3 class="agileits-icons-title">List Favorite Movies</h3>
+                    <section id="new">
+                        <h3 class="page-header page-header icon-subheading">User: <a asp-controller="Users" asp-action="Edit" asp-route-id="@Model.Id">@Model.Name</a></h3>
+                        <div class="row fontawesome-icon-list">
+                            <table>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Movie Name</th>
+                                    <th>Modify</th>
+                                </tr>
+                                @foreach (var x in Model.FavoriteMovies)
+                                {
+                                    <tr>
+                                        @{ i++;}
+                                        <td>
+                                            @i
+                                        </td>
+                                        <td>
+                                            <a asp-controller="SingleMovie" asp-action="Index" asp-route-id="@x.TmpId"> @x.NameFavoriteMovie</a>
+                                        </td>
+                                        <td><a asp-controller="SingleUser" asp-action="Delete" asp-route-userid="@Model.Id" asp-route-id="@x.Id">Delete</a></td>
+                                    </tr>
+                                }
+                            </table>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--//content-inner-section-->
+}
+<style>
+    table, td, th {
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        padding: 15px;
+    }
+</style>

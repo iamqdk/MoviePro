@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    var Genre = ViewData["Genre"] as Genre;
+}
+@model List<Movie>
+<div class="w3_breadcrumb">
+    <div class="breadcrumb-inner">
+        <ul>
+            <li><a asp-controller="Users" asp-action="Index">Home</a><i>/</i></li>
+            <li><a asp-controller="SingleGenre" asp-action="Index" asp-route-id="@Genre.Id">@Genre.Type</a></li>
+        </ul>
+    </div>
+</div>
+<!--/content-inner-section-->
+<div class="w3_content_agilleinfo_inner">
+    <div class="agile_featured_movies">
+        <h3 class="agile_w3_title hor-t">@Genre.Type <span>Movies</span> </h3>
+        <div class="wthree_agile-requested-movies tv-movies">
+            @foreach (var x in Model)
+            {
+                <div class="col-md-2 w3l-movie-gride-agile requested-movies">
+                    <a asp-controller="SingleMovie" asp-action="Index" asp-route-id="@x.Id" class="hvr-sweep-to-bottom">
+                        <img src="@x.UrlImage" title="@x.MovieName" class="img-responsive" alt=" ">
+                        <div class="w3l-action-icon"><i class="fa fa-play-circle-o" aria-hidden="true"></i></div>
+                    </a>
+                    <div class="mid-1 agileits_w3layouts_mid_1_home">
+                        <div class="w3l-movie-text">
+                            <h6><a asp-controller="SingleMovie" asp-action="Index" asp-route-id="@x.Id">@x.MovieName</a></h6>
+                        </div>
+                        <div class="mid-2 agile_mid_2_home">
+                            <p>@x.DateReleased.Year</p>
+                            <div class="block-stars">
+                                <ul class="w3l-ratings">
+                                    @for (int i = 1; i < @x.Views / 100 && i <= 5; i++)
+                                    {
+                                        <li><a><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                    }
+                                </ul>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    @if (@x.Views > 500)
+                    {
+                        <div class="ribben">
+                            <p style="color:orangered">Hot</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="ribben">
+                            <p>New</p>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+    @{
+        int page = 0;
+        if (ViewBag.Count % 10 == 0)
+        {
+            page = ViewBag.Count / 10;
+        }
+        else
+        {
+            page = (ViewBag.Count / 10) + 1;
+
+        }
+    }
+    <div class="blog-pagenat-wthree">
+        <ul>
+            <li><a class="frist">-</a></li>
+            @for (int i = 1; i <= page; i++)
+            {
+                if (i == 1)
+                {
+                    <li><a href="/SingleGenre/Index/@Genre.Id">@i</a></li>
+                }
+                else
+                {
+                    <li><a href="/SingleGenre/IndexPage/@Genre.Id?page=@i">@i</a></li>
+                }
+            }
+            <li><a class="last">-</a></li>
+        </ul>
+    </div>
+</div>

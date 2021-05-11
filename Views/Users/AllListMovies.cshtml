@@ -1,0 +1,61 @@
+﻿@{
+    ViewData["Title"] = "AllListMovies";
+    var i = 0;
+}
+@model List<Movie>
+    <!-- breadcrumb -->
+<div class="w3_breadcrumb">
+    <div class="breadcrumb-inner">
+        <ul>
+            <li><a asp-controller="Users" asp-action="Index">Home</a><i>//</i></li>
+            <li>List A-Z</li>
+        </ul>
+    </div>
+</div>
+<!-- //breadcrumb -->
+<div class="w3_content_agilleinfo_inner">
+    <div class="agile_featured_movies">
+        <div class="inner-agile-w3l-part-head">
+            <h3 class="w3l-inner-h-title">Movie List</h3>
+            <p class="w3ls_head_para">A - Z</p>
+        </div>
+        <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+            <div id="myTabContent" class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+                    <div class="agile-news-table">
+                        <div class="w3ls-news-result">
+                            <h4>Search Results : <span>@Model.Count()</span></h4>
+                        </div>
+                        <table class="container table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Movie Name</th>
+                                    <th>Year</th>
+                                    <th>Country</th>
+                                    <th>Genre</th>
+                                    <th>Rating</th>
+                                    <th>Views</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var x in @Model)
+                                {
+                                    <tr>
+                                        <td><b>@{i++;}@i</b></td>
+                                        <td class="w3-list-img"><a asp-controller="SingleMovie" asp-action="Index" asp-route-id="@x.Id"><span>@x.MovieName</span></a></td>
+                                        <td>@x.DateReleased.Year</td>
+                                        <td class="w3-list-info"><a asp-controller="SingleCountry" asp-action="Index" asp-route-id="@x.Country.Id">@x.Country.CountryName</a></td>
+                                        <td class="w3-list-info"><a asp-controller="SingleGenre" asp-action="Index" asp-route-id="@x.Genre.Id"> @x.Genre.Type</a></td>
+                                        <td>@x.Rating</td>
+                                        <td>@x.Views</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

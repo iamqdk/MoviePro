@@ -1,0 +1,76 @@
+﻿@model IEnumerable<MoviePro.Models.ContactInformation>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Manage Contact Information</h2>
+<div>
+    @{
+        int page = 0;
+        if (ViewBag.Count % 5 == 0)
+        {
+            page = ViewBag.Count / 5;
+        }
+        else
+        {
+            page = (ViewBag.Count / 5) + 1;
+
+        }
+    }
+    @for (int i = 1; i <= page; i++)
+    {
+        @if (i == 1)
+        {
+            <a href="/ContactInformations/Index">@i</a>
+        }
+        else
+        {
+            <a href="/ContactInformations/IndexPage?page=@i">@i</a>
+        }
+    }
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Message)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Message)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

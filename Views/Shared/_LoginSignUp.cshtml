@@ -1,0 +1,160 @@
+﻿@using Microsoft.AspNetCore.Http
+@using MoviePro.Extensions
+@{
+    var verifyLogin = Context.Session.Get<User>("LoginString");
+
+}
+
+<body>
+    <div class="w3_agilits_banner_bootm">
+        <div class="w3_agilits_inner_bottom">
+            <div class="col-md-6 wthree_agile_login">
+                <ul>
+                    <li><i class="fa fa-phone" aria-hidden="true"></i> (+000) 009 777 777</li>
+                    @if (verifyLogin == null)
+                    {
+                        <li>
+                            <a class="login" asp-controller="Users" asp-action="Login">Login</a>
+                        </li>
+                        <li>
+                            <a class="login reg" asp-controller="Users" asp-action="Create">Register</a>
+                        </li>
+
+                    }
+                    else
+                    {
+                        if (verifyLogin.Email == "admin@gmail.com")
+                        {
+                            <li>
+                                <a class="login" asp-controller="Countries" asp-action="Index">@verifyLogin.Name</a>
+                            </li>
+                            <li>
+                                <a class="login" asp-controller="Users" asp-action="Logout">Logout</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <a class="login" asp-controller="SingleUser" asp-action="Index" asp-route-id="@verifyLogin.Id">@verifyLogin.Name</a>
+                            </li>
+                            <li>
+                                <a class="login" asp-controller="Users" asp-action="Logout">Logout</a>
+                            </li>
+                        }
+
+                    }
+                </ul>
+            </div>
+            <div class="col-md-6 wthree_share_agile">
+
+                <div class="single-agile-shar-buttons">
+                    <ul>
+                        <li>
+                            <div class="fb-like" data-href="https://www.facebook.com/Anime-of-QDK-100713072192180" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>
+                            <script>
+                                (function (d, s, id) {
+                                    var js, fjs = d.getElementsByTagName(s)[0];
+                                    if (d.getElementById(id)) return;
+                                    js = d.createElement(s); js.id = id;
+                                    js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.7";
+                                    fjs.parentNode.insertBefore(js, fjs);
+                                }(document, 'script', 'facebook-jssdk'));</script>
+                        </li>
+                        <li>
+                            <div class="fb-share-button" data-href="https://www.facebook.com/Anime-of-QDK-100713072192180" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.facebook.com%2Fw3layouts&amp;src=sdkpreparse">Share</a></div>
+                        </li>
+                        @*<li class="news-twitter">
+                            <a href="https://twitter.com/w3layouts" class="twitter-follow-button" data-show-count="false">Twitter</a>
+                            <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+                        </li>
+                        <li>
+                            <a href="https://twitter.com/intent/tweet?screen_name=w3layouts" class="twitter-mention-button" data-show-count="false">Twitter</a>
+                            <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+                        </li>*@
+                        <li>
+                            <!-- Place this tag where you want the +1 button to render. -->
+                            <div class="g-plusone" data-size="medium"></div>
+
+                            <!-- Place this tag after the last +1 button tag. -->
+                            <script type="text/javascript">
+                                (function () {
+                                    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                                    po.src = 'https://apis.google.com/js/platform.js';
+                                    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                                })();</script>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--//banner-bottom-->
+    <!-- Modal1 -->
+    <div class="modal fade" id="myModal4" tabindex="-1" role="dialog">
+
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4>Login</h4>
+                    <div class="login-form">
+                        <form asp-action="Login" asp-controller="Users" method="post">
+                            <input type="email" name="email" placeholder="E-mail" required="">
+                            <input type="password" name="password" placeholder="Password" required="">
+                            <div class="tp">
+                                <input type="submit" value="LOGIN NOW">
+                            </div>
+                            <div class="forgot-grid">
+                                <div class="forgot">
+                                    <a href="#" data-toggle="modal" data-target="#myModal2">Forgot Password?</a>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //Modal1
+    <!-- Modal1 -->
+    @*<div class="modal fade" id="myModal5" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                 Modal content
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4>Register</h4>
+                        <div class="login-form">
+                            <a asp-controller="Users" asp-action="Create">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="form-group">
+                                    <label for="name" class="control-label">Name</label>
+                                    <input name="name" class="form-control" />
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email" class="control-label">Email</label>
+                                    <input name="email" class="form-control" />
+                                    <span  class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password" class="control-label">Password</label>
+                                    <input type="password" name="password" class="form-control" />
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+                                <div class="signin-rit">
+                                    <span class="agree-checkbox">
+                                        <label class="checkbox"><input type="checkbox" name="checkbox">I agree to your <a class="w3layouts-t" href="#" target="_blank">Terms of Use</a> and <a class="w3layouts-t" href="#" target="_blank">Privacy Policy</a></label>
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+    <!-- //Modal1 -->
+</body>

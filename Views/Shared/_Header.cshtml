@@ -1,0 +1,98 @@
+﻿@using MoviePro.Models.Services
+@inject GenreServices GenreServices
+@inject CountryServices CountryServices
+@{ 
+
+}
+
+<!--/main-header-->
+<!--/banner-section-->
+<div id="demo-1" data-zs-src='["Movie_Images/wallpaper1.jpg", "Movie_Images/wallpaper2.jpg", "Movie_Images/wallpaper3.jpg","Movie_Images/wallpaper4.jpg"]' data-zs-overlay="dots">
+    <div class="demo-inner-content">
+        <!--/header-w3l-->
+        <div class="header-w3-agileits" id="home">
+            <div class="inner-header-agile">
+                <nav class="navbar navbar-default">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <h1><a asp-controller="Users" asp-action="Index"><span>M</span>ovies of <span>Q</span>dk</a></h1>
+                    </div>
+                    <!-- navbar-header -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a asp-controller="Users" asp-action="Index">Home</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Genre <b class="caret"></b></a>
+                                <ul class="dropdown-menu multi-column columns-3">
+                                    <li>
+                                        @foreach (var x in GenreServices.ListGenres())
+                                        {
+                                            <div class="col-sm-4">
+                                                <ul class="multi-column-dropdown">
+                                                    <li><a asp-controller="SingleGenre" asp-action="Index" asp-route-id="@x.Id">@x.Type</a></li>
+                                                </ul>
+                                            </div>
+                                        }
+                                        <div class="clearfix"></div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><a asp-controller="Users" asp-action="AllListNews">news</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Country <b class="caret"></b></a>
+                                <ul class="dropdown-menu multi-column columns-3">
+                                    <li>
+                                        @foreach (var x in CountryServices.ListCountries())
+                                        {
+                                            <div class="col-sm-4">
+                                                <ul class="multi-column-dropdown">
+                                                    <li><a asp-controller="SingleCountry" asp-action="Index" asp-route-id="@x.Id">@x.CountryName</a></li>
+                                                </ul>
+                                            </div>
+                                        }
+                                        <div class="clearfix"></div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><a asp-controller="Users" asp-action="AllListMovies">A-Z</a></li>
+                            <li><a asp-controller="Users" asp-action="Contact">Contact</a></li>
+                        </ul>
+
+                    </div>
+                    <div class="clearfix"> </div>
+                </nav>
+                <div class="w3ls_search">
+                    <div class="cd-main-header">
+                        <ul class="cd-header-buttons">
+                            <li><a class="cd-search-trigger" href="#cd-search"> <span></span></a></li>
+                        </ul> <!-- cd-header-buttons -->
+                    </div>
+                    <div id="cd-search" class="cd-search">
+                        <form asp-controller="SingleMovie" asp-action="SearchMovie" method="post">
+                            <input name="Search" type="search" placeholder="Search...">
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <!--//header-w3l-->
+        <!--/banner-info-->
+        <div class="baner-info">
+            <h3>Hottest <span>Th</span>eater <span>Mo</span>vies</h3>
+            <h4>In space no one can hear you scream.</h4>
+            <a class="w3_play_icon1" href="#small-dialog1">
+                Watch Trailer
+            </a>
+        </div>
+        <!--/banner-ingo-->
+    </div>
+</div>
+<!--/banner-section-->
+<!--//main-header-->

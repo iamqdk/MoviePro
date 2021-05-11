@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewData["Title"] = "Hack";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Hack</h2>
+<form asp-action="Hack2" enctype="multipart/form-data" method="post">
+    <div class="form-group">
+        <input type="file" name="Video.FormFile" />
+        <button type="submit">save as</button>
+    </div>
+</form>

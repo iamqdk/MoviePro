@@ -1,0 +1,60 @@
+﻿@model IEnumerable<MoviePro.Models.Country>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Manage Coutries</h2>
+<div>
+    @{
+        int page = 0;
+        if (ViewBag.Count % 5 == 0)
+        {
+            page = ViewBag.Count / 5;
+        }
+        else
+        {
+            page = (ViewBag.Count / 5) + 1;
+
+        }
+    }
+    @for (int i = 1; i <= page; i++)
+    {
+        @if (i == 1)
+        {
+            <a href="/Countries/Index">@i</a>
+        }
+        else
+        {
+            <a href="/Countries/IndexPage?page=@i">@i</a>
+        }
+    }
+</div>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CountryName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CountryName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
